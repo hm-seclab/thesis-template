@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{./zyx/gitinfo}
+\RequirePackage{xstring}
+
+% Read the path to the main-git-directory via given options
+\let\@gitdir\empty
+\DeclareOption*{\let\@gitdir\CurrentOption}
+\ProcessOptions\relax
+
+\def\gitrealdir{\@gitdir/.git}
+
+% Read the reference of the currently checked out branch
+\IfFileExists{\gitrealdir/HEAD}{
+ \newread\githeadfile
+ \openin\githeadfile=\gitrealdir/HEAD
+ \read\githeadfile to\@githead
+ \closein\githeadfile
+
+ % Extract the branch name
+ \StrGobbleRight{\@githead}{1}[\@mystring]
+ \StrGobbleLeft{\@mystring}{5}[\@gitref]
+ \StrGobbleLeft{\@mystring}{16}[\gitbranch]
+
+ % Read the referenced file to obtain the hash
+ \IfFileExists{\gitrealdir/\@gitref}{
+  \newread\gitidfile
+  \openin\gitidfile=\gitrealdir/\@gitref
+  \read\gitidfile to\gitid
+  \closein\gitidfile
+
+  % Extract the short-id
+  \StrLeft{\gitid}{7}[\gitshort]
+ }{
+  % Fallback if the git history is empty
+  \def\gitid{init}
+  \def\gitshort{init}
+ }
+
+}{
+ \def\gitbranch{}
+ \def\gitid{}
+ \def\gitshort{}
+}
+
+\endinput

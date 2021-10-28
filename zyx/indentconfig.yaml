@@ -1,0 +1,15 @@
+# Set identation style
+defaultIndent: " "
+
+onlyOneBackUp: True
+
+modifyLineBreaks:
+    preserveBlankLines: 0
+    condenseMultipleBlankLinesInto: 2
+
+    oneSentencePerLine:
+        manipulateSentences: 1
+        removeSentenceLineBreaks: 0
+
+noIndentBlock:
+    noindent: 1

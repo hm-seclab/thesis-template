@@ -1,0 +1,31 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\appendix{}
+
+\microtypesetup{protrusion=false}
+
+\begin{hidenfromTOC}
+\cleardoublepage
+\iftotalfigures\listoffigures{}\vspace{1em}\fi
+
+\begingroup
+% Temporarily overwriting clearpage command
+% suppresses a new page for figures and listings
+\let\cleardoublepage\relax
+\let\clearpage\relax
+% Rename list of listings
+\ifthenelse{\equal{\mylanguage}{de}}{%
+ \renewcommand{\lstlistlistingname}{Programmverzeichnis}
+}{%
+ \renewcommand{\lstlistlistingname}{List of Listings}
+}
+\iftotallstlistings\lstlistoflistings{}\vspace{1em}\fi
+\iftotaltables\listoftables{}\fi
+\endgroup
+\end{hidenfromTOC}
+
+\microtypesetup{protrusion=true}
+\cleardoublepage
+\sloppy\printbibliography[heading=bibintoc]\fussy
+\end{document}

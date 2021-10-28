@@ -1,0 +1,202 @@
+% Nasty hack, to supress pointless warnings
+\usepackage{silence}
+% auxhook.sty: Package auxhook Warning:
+% Cannot patch \document,(auxhook) using \AtBeginDocument instead.
+\WarningFilter{auxhook}{Cannot patch \document}
+% biblatex searches for {language}-ieee.lbx which does not (and should not) exist.
+% see: https://tex.stackexchange.com/a/451193
+\WarningFilter{biblatex}{File 'english-ieee.lbx'}
+\WarningFilter{biblatex}{File 'ngerman-ieee.lbx'}
+\WarningFilter{biblatex}{File 'german-ieee.lbx'}
+
+% Conditional logic
+\usepackage{ifthen}
+% Main language settings
+\ifthenelse{\equal{\mylanguage}{de}}{%
+% Set german as main language and english as a fallback
+\usepackage[english,ngerman]{babel}
+}{%
+% Set english as main language and german as a fallback
+\usepackage[ngerman,english]{babel}
+}
+% Euro symbol support
+\usepackage{eurosym}
+% Use utf-8 encoding -> Umlaute sind direkt möglich
+\usepackage[utf8]{inputenc}
+% And directly use the keyboard symbol and replace it correctly
+\DeclareUnicodeCharacter{20AC}{\euro}
+% Allow direct copy&paste from the pdf
+\usepackage[T1]{fontenc}
+% Better formulas and align environments
+\usepackage{amssymb,amsmath}
+% The default Computer Modern font of latex with added light and bold true type fonts aka monospace
+\usepackage[lighttt]{lmodern}
+% Hacky bugfix for some wrongly defined fonts in lighttt
+\ttfamily\DeclareFontShape{T1}{lmtt}{m}{it}{<->sub*lmtt/m/sl}{}
+%%%
+% Configure your fonts - see https://r2src.github.io/top10fonts/ for details
+% Just uncomment one of the following packages to change your font
+% Or comment out all of them for LaTeX's default font
+%%%
+\usepackage[nott,light]{kpfonts}
+%\usepackage{fourier}
+%\usepackage{libertine}
+%\usepackage{dejavu}
+%\usepackage{mathpazo}
+%%% End font config
+% Magic for better text spread and hyphenations
+\usepackage[final]{microtype}
+% Allow inclusion of images
+\usepackage{graphicx}
+% Draw directly own images in LaTeX - unbelievable powerful
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+% Awesome plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}  % This version can be updated anytime at will
+% Debug package to show the page frames and context boxes
+%\usepackage{showframe}
+% Set paper and text dimensions
+\usepackage[top=3.75cm,left=2.75cm,right=2.75cm,bottom=3.75cm,
+bindingoffset=0.5cm,heightrounded,
+marginparwidth=2cm,marginparsep=0.25cm,
+headsep=2em,footskip=3em]{geometry}
+
+% Store git information within the pdf keywords
+\ifdefempty{\gitid}{%
+\newcommand*{\gitkeywords}{}
+}{%
+\newcommand*{\gitkeywords}{git:\ \gitbranch\ \gitid}
+}
+
+% Set invisible, but clickable links into the pdf
+\usepackage[pdfusetitle,bookmarksnumbered,hidelinks,bookmarksopen,pdfkeywords={\gitkeywords}]{hyperref}
+% Better references
+\ifthenelse{\equal{\mylanguage}{de}}{%
+\usepackage[capitalise,noabbrev,ngerman]{cleveref}
+}{%
+\usepackage[capitalise,noabbrev]{cleveref}
+}
+% control line spacing
+\usepackage{setspace}
+% Pretty priting for source code
+\usepackage{listings}
+\lstset{
+numbers=left, numberstyle=\tiny, numberfirstline=true,
+% Uncomment, if only each fifth number should be printed
+% firstnumber=1, stepnumber=5, numbersep=5pt
+captionpos=b, float=htbp, xleftmargin=2em,frame=single,framexleftmargin=1.5em, basicstyle=\ttfamily \lst@ifdisplaystyle\fontsize{\f@size}{\f@size}\fi \selectfont}
+\newcaptionname{ngerman}{\lstlistingname}{Programm}
+% subfiles as an alternative for include or input
+% Hence, all .tex-files can be compiled solely
+\usepackage{subfiles}
+% Even tikz-pictures have their own compilable .tex-file
+\usepackage{standalone}
+\standaloneconfig{mode=buildnew}
+% Package to generate place holder test
+\usepackage{lipsum}
+% Easy quoting commands
+\usepackage[autostyle=true]{csquotes}
+\MakeOuterQuote{"}
+% Better looking and more powerful lists and enumerations
+\usepackage{enumitem}
+\setlist{noitemsep}
+% Add caption control
+\usepackage{caption}
+\captionsetup{format=plain,justification=centering,font=small,labelfont=bf,textfont=it}
+% Tables with page split
+\usepackage{longtable}
+% Tables filling a specific space
+\usepackage{tabularx}
+
+% New column types with alignments and additional spacing
+\newcolumntype{L}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}%
+\newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}%
+\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedleft\arraybackslash}X}%
+\newcolumntype{P}[1]{>{\hsize=#1\hsize\arraybackslash}X}%
+
+% Switch to these, if you prefer absolute values instead of relatives
+%\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+%\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+%\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+%\newcolumntype{P}[1]{>{\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Packages for better tables
+\usepackage{booktabs}
+% Add several symbols, e.g. for average sign
+\usepackage{wasysym}
+% Situation sensitive spacing at the end of commands
+\usepackage{xspace}
+% literature references
+\usepackage[style=numeric-comp,uniquename=init, maxcitenames=2, minbibnames=5, maxbibnames=5, giveninits=true]{biblatex}
+% other styles suitable: ieee alphabetic-verb numeric-comp [Just try them^^]
+% Prevent line break at before citation number in textcite
+\renewcommand\namelabeldelim{\addnbspace}
+% Delete some fields out of the bibentries
+\AtEveryBibitem{%
+ \clearfield{note}%
+ \clearfield{pages}%
+ \clearfield{volume}%
+ %
+ \ifentrytype{book}{
+  \clearfield{url}%
+  \clearfield{urldate}%
+ }{}
+ \ifentrytype{collection}{
+  \clearfield{url}%
+  \clearfield{urldate}%
+ }{}
+ \ifentrytype{incollection}{
+  \clearfield{url}%
+  \clearfield{urldate}%
+ }{}
+ \ifentrytype{article}{
+ \clearfield{url}%
+ \clearfield{urldate}%
+}{}
+}
+% Add command for TODO
+\newcounter{todos}
+\newcommand{\todo}[1]{%
+ \refstepcounter{todos}%
+ \textbf{\textcolor{orange}{\texorpdfstring{\textls[-100]{TODO\textsubscript{\thetodos}}}{TODO\thetodos}:~#1}}\xspace}
+% A package for comments
+\usepackage{verbatim}
+
+% Some language specific titles
+\ifthenelse{\equal{\mylanguage}{de}}{
+\newcommand*{\myAbstractTitle}{Zusammenfassung}
+}{
+\newcommand*{\myAbstractTitle}{Abstract}
+}
+\ifthenelse{\equal{\mylanguage}{de}}{
+\newcommand*{\myAcknowTitle}{Danksagung}
+}{
+\newcommand*{\myAcknowTitle}{Acknowledgments}
+}
+
+% Hack to remove something from the Table of Content (TOC)
+\newenvironment{hidenfromTOC}{
+ \addtocontents{toc}{%
+  \edef\protect\SavedTocDepth{\protect\the\protect\value{tocdepth}}%
+ }%
+ \addtocontents{toc}{\protect\setcounter{tocdepth}{-10}}
+}{
+ \addtocontents{toc}{\protect\setcounter{tocdepth}{\protect\SavedTocDepth}}
+}
+
+% Hack to generate fully unfolded navigation table for the pdf independently
+% from the more compact printed table of content
+\AtEndDocument{\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}}
+
+\usepackage[defaultlines=2,all]{nowidow}
+
+% Counter for lists given at the end of the document
+\usepackage[figure,table,lstlisting]{totalcount}
+
+% Adjustments for the pandoc latex template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\providecommand{\putMD}[1]{%
+\IfFileExists{#1.tex}{\input{#1.tex}}{Error: Cannot include #1. Please check your compiler toolchain}}

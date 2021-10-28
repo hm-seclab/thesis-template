@@ -1,0 +1,126 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+% proper page numbering for the cover page
+\pagenumbering{Alph}
+% Deactivate page anchors as they are needed later for the content
+\ifthenelse{\boolean{\mywip}}{}{
+\hypersetup{pageanchor=false}
+\newgeometry{bindingoffset=1.19cm} % This number is weird, but it centers the title page
+\begin{titlepage}
+ \centering
+ {\LARGE \textsc{\myDepartment}}\\[0.8em]
+ {\Large \textsc{\myUniversity}}
+ \vfill
+ \vfill
+ {\Large \myThesisType}
+ \vfill
+ \begin{spacing}{1.1}
+  \Huge \bfseries \myTitle
+ \end{spacing}
+ \vfill
+ {\Large \myAuthor}
+ \vfill
+ \vfill
+ \cleardoublepage
+\end{titlepage}
+\restoregeometry
+
+% Reset page numbering for subfiles
+\pagenumbering{arabic}
+
+\frontmatter{}
+\cleardoublepage
+%% Begin of the first page
+\thispagestyle{empty}
+\begin{center}
+ {\LARGE \textsc{\myDepartment}}\\[0.8em]
+ {\Large \textsc{\myUniversity}}
+ \vfill
+ \vfill
+ {\Large \myThesisType}
+ \vfill
+ \begin{spacing}{1.1}
+  \Huge \bfseries \myTitle
+ \end{spacing}
+ \ifthenelse{\equal{\myTitleNative}{}}{}{
+  \vspace{2em}
+  \begin{spacing}{1.1}
+   \Huge \bfseries \myTitleNative
+  \end{spacing}
+ }
+ \vfill
+ \vfill
+ \begingroup
+ \renewcommand*{\arraystretch}{1.15}
+ \begin{tabularx}{\textwidth}{R{1} L{1}}
+  \ifthenelse{\equal{\mylanguage}{de}}{Autor}{Author}:                & \myAuthor      \\
+  \ifthenelse{\equal{\mylanguage}{de}}{Abgabedatum}{Submission Date}: & \myEndDate     \\
+  \ifthenelse{\equal{\mylanguage}{de}}{Aufgabensteller}{Supervisor}:  & \myReviewFirst \\
+  \ifthenelse{\equal{\mylanguage}{de}}{Betreuer}{Advisor}:            & \myAdvisor     \\
+ \end{tabularx}
+ \endgroup
+ \vfill
+ \vfill
+\end{center}
+%% End of the first page
+\cleardoublepage
+%% Begin of the declaration page
+\hypersetup{pageanchor=true}
+\thispagestyle{empty}
+\phantom{.}
+\vfill
+{\setlength{\parindent}{0cm}%
+ \ifthenelse{\equal{\mylanguage}{de}}{%
+  \begin{otherlanguage}{ngerman}
+   Ich versichere, dass ich diese {\myThesisTypeShort} selbstständig verfasst und nur die angegebenen Quellen und Hilfsmittel verwendet habe.\\[7em]
+   \myCity, den \myHandIn \hfill \myAuthor
+  \end{otherlanguage}
+ }{%
+  I confirm that this \MakeLowercase{\myThesisTypeShort} is my own work and I have documented all sources and material used.\\[7em]
+  \myCity, \myHandIn \hfill \myAuthor
+ }
+}
+\vspace{3em}
+%% End of the declaration Page
+\cleardoublepage
+
+\IfFileExists{../txt/0-acknowledgments.tex}{
+ \currentpdfbookmark{\myAcknowTitle}{acknowledgments}
+ \subfile{../txt/0-acknowledgments.tex}
+ \cleardoublepage
+}{}
+}
+
+%% Adding author name and thesis title in the header of the first page in wip mode
+\ifthenelse{\boolean{\mywip}}{
+ % This hack needs to be undone later
+ \renewcommand*{\chapterpagestyle}{scrheadings}
+ \ihead{\myAuthor}
+ \ohead{\myThesisType \\[0.2em] \myTitle \vspace{-1.5em}}
+}{}
+
+\begingroup
+% Temporarily overwriting clearpage command
+\let\cleardoublepage\relax
+\let\clearpage\relax
+\currentpdfbookmark{\myAbstractTitle}{abstract}
+\subfile{../txt/0-abstract.tex}
+\endgroup
+
+\microtypesetup{protrusion=false}
+\cleardoublepage
+% Revert the hack to show a header on the abstract page for wip
+\ifthenelse{\boolean{\mywip}}{
+ \renewcommand*{\chapterpagestyle}{plain}
+}{}
+\ifthenelse{\equal{\mylanguage}{de}}{
+ \currentpdfbookmark{Inhaltsverzeichnis}{contents}
+}{
+ \currentpdfbookmark{Contents}{contents}
+}
+\tableofcontents{}
+\microtypesetup{protrusion=true}
+\mainmatter{}
+
+\end{document}

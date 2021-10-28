@@ -1,0 +1,153 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{User manual}
+
+Indeed, another long manual for a tool \cite{Bithappens16Template} that aims for not requiring any guidance.
+However, it is highly recommended to read it thoroughly as it covers a lot of non-standard LaTeX features and helps you with getting the most out of this template.
+Have fun!
+
+\section{First steps}
+
+\subsection{Compile it!}
+
+Before modifying any file, try if you can compile it!
+I -- a long year Linux enthusiast -- prefer vim and just running make in the project directory.
+But other toolchains works as well.
+For some files, I also use \href{https://github.com/alexandervdm/gummi}{gummi} -- especially for drawing images --, but as long as you have LaTeX installed on your system, almost every editor should work as well.
+I have also tested it with \href{http://www.texstudio.org/}{TeXstudio}.
+Although the navigation over the structure panel seems to be broken (it does not recognize the \texttt{\textbackslash subfile} commands correctly), compilation works perfectly.
+As a workaround for broken navigation, I suggest compiling \texttt{main.tex} once, view the resulting PDF and use a right click on any text with \enquote{Go to Source} to jump to the corresponding \texttt{.tex}-file
+
+
+\subsection{Personalize the template}
+
+Your thesis is a very personal project, but -- nevertheless -- after all, it is an official document.
+Hence, there must be a lot of formal stuff in place.
+This template takes care of the layout, but you must provide the content.
+To add your personal information (e.g. your name, Topic, supervisors, etc.), just open \texttt{./myconfig.sty} with your favorite tex(t)-editor and edit the corresponding dummy data.
+
+In the \texttt{./txt/}-directory you also find the dummy text for the abstract and the acknowledgments for the preface of the thesis.
+I do not suggest to start writing your thesis with those pieces of text, but if you want to add or adjust them later -- now you know where they are waiting for you to fill them.
+
+If you lack any LaTeX-package for some special purposes, feel free to add it to the package list in \texttt{./zxy/mypackages.sty}.
+The template does not split the package list into multiple files (e.g. for \enquote{template-packages} and \enquote{user-packages}) to avoid double-listing of any package.
+Furthermore the order of the packages matters in rare corner cases you can solve some conflicts just by reordering.
+Inside the \texttt{zyx}-directory you also find all the internal files for setting up the cover and the surrounding pages.
+The average user should not be required to touch these files, but if something is broken, this is most likely the place to fix it.
+
+\newpage
+\subsection{Start writing}
+
+Of course, the biggest part of the thesis document is writing text.
+This template uses the \texttt{./txt}-directory for all of it.
+For the inclusion into the main document, you must put a corresponding entry into \texttt{main.tex}.
+The name of the file does not matter as the sequence of the entries in the tex-code determines the order of the included chapters.
+
+Although I recommend adding a (not necessarily serial) number in front of the file names to represent the correct order in file browsers and across multiple editors.
+As a good starting point for new files just copy the \texttt{0-empty.tex} file and start writing in there.
+If you prefer having a subdirectory for each chapter, just create new folders inside the \texttt{txt}-directory.
+Afterward, adjust the file names inside \texttt{main.tex} corresponding to your subdirectory names and adapt the path to the main.tex in the \textbackslash documentclass in the new/moved file (most likely to \enquote{\texttt{../..}} for one nested subdirectory).
+
+
+\section{Core ideas}
+
+\subsection{Each \texttt{.tex}-file can be compiled on its own}
+Every file with a \texttt{.tex}-file extension can be compiled without any of the other \texttt{.tex}-files.
+If you want someone to read your abstract or only one of your chapters, just only compile the corresponding \texttt{.tex}-file and you get a single PDF only containing the current file.
+This is very convenient when drawing pictures with tikz (inside the img-folder) as they must be compiled and adjusted many times before they look perfect and having them separated speeds up their compile time immensely.
+Additionally, the generated pictures can be reused in other documents -- for example in your final presentation.
+
+
+\subsection{Separate blown up LaTeX code from written text}
+
+Nothing is more distracting when reading text than huge blocks of random LaTeX macros spread between it.
+Hence, this templates does its best to split layout logic and the actual content into separate files.
+For example, the main file does not start with a few hundred lines of template and package stuff before you can organize your files.
+That also has a nice side effect: Everything inside the \texttt{zyx} directory requires a quite a decent LaTeX-skill, whereas adding new text becomes a fairly simple task.
+
+\newpage
+\subsection{Folder Structure}
+
+\paragraph{The root directory} only contains few files, and the average user should not be required to add a new file there.
+\texttt{main.tex} is the entry point to your thesis.
+\texttt{Makefile}, \texttt{README.md}, \texttt{LICENSE} and \texttt{.gitignore} are needed to be at the top level to form a reasonable project setup.
+The \texttt{literature.bib} is the container for all the literature referenced anywhere in the thesis.
+Most scientific databases provide snippets in the BibTeX format that can directly be copied into it.
+However, be careful: Even the same database is not entirely consistent with the format of conference names and the longer the list becomes, the more likely it requires some manual adjustments.
+Finally, \texttt{make+docker.sh}, \texttt{.github/workflows/thesis-pdf.yml} and \texttt{.gitlab-ci.yml} are helper files for the continues integration pipeline.
+These can be ignored or deleted if the local build is working and you do not plan to use any external CI-Server.
+
+\paragraph{img} is the place for all images and pictures included in your thesis.
+The best way is to write your images as code and compile them, but having vector graphics in PDFs there is also fine (\texttt{git add -f name.pdf} may be helpful).
+You should avoid pixel based pictures like PNGs or JPGs wherever you can.
+If it is unavoidable provide at least 300dpi resolution for a high quality printout.
+
+\paragraph{txt} comprises all text files of your thesis, e.g. one file for each chapter or section in your thesis.
+Don't forget to register them in the \texttt{main.tex}.
+
+\paragraph{zyx} is a very strange name for a directory.
+It hides all LaTeX logic to compose the template and can be ignored by the average user.
+I choose this name because there exist no human word listed after this letters in a dictionary.
+Hence, it is always the last directory inside a directory what makes it easier to recognize and ignore it.
+Furthermore, it is still somehow pronounceable.
+
+In case, you want to put tables, plots, code-snippets or whatever else into your thesis, I would recommend to create new folders in the root directory.
+This extends the original structure of the template and helps to keep the overview after months of work on your thesis document.
+
+Nevertheless, feel free to adapt the directory structure to your needs and delete folders if you do not need them.
+There is no reason for keeping useless files or directories that only mess up your environment.
+
+\newpage
+\section{Minor Features}
+
+\subsection{One or two sides per page}
+Depending on the amount of text you have written for your thesis, the final document will probably contain a lot of sides.
+Hence, I suggest printing two sides per page (one on the front and one on the back).
+In this way, the resulting book becomes not so thick and costs a lot less money for printing.
+If you want to use a single side per page layout instead, you can change this the \texttt{main.tex} by adjusting the \texttt{documentclass}.
+But no worry when you do not want to decide this now.
+The layout can also be adapted later as both setups have the same text dimensions and your text will look identical on both of them.
+No matter what design you chose, please don't forget to give a corresponding hint to the print shop.
+Finally, a small remark for all those, who look at this template with hawk eyes:
+The text is intentional not perfectly centered -- instead the inner margin is a little bit bigger than the outer margin.
+That results in better readability after the pages are bound and glued to a book.
+
+\subsection{Integrated git version information}
+During writing your thesis, it is highly recommended to put your work under a version control system: to store older thoughts in case you need them later, for an easier backup and to proof that you have not copy-pasted your thesis.
+This template is prepared for git as it already provides a \texttt{.gitignore} file covering the most frequent use cases.
+So just initialize a new git repository in the root directory, and everything sets up automatically.
+
+But there are even more benefits of using git for the template.
+It automatically adds the currently checked out branch and tag of the directory when the compilation starts as a keyword to the generated pdf document.
+That is particularly useful during the end phase of the thesis, where you most likely distribute some pdfs to different reviewers and it is quite easy to lost track, who has received which version, as some reviews arrive later than others.
+Depending on your pdf-viewer you can find it most likely somewhere under properties.
+
+If you are not using the root directory of this template is the main directory of your git repository, you have to adjust the (relative) path to your git directory in the \texttt{./myconfig.sty}.
+In the rare case that your reviewer wants to print your thesis and returns a stack of paper with handwritten notes to you, the pdf meta-information is not helpful, but use the \texttt{wip} switch in the \texttt{main.tex} to print it on every page.
+
+\subsection{Create Submission Archive}
+After you are done with your thesis, your advisors may also want a copy of its source code.
+Of course, direct access to the git-repository is the best, but this also contains a lot of meta-data that arise privacy concerns (e.g. when exactly what part of the text was written).
+A good trade-off is to put all source files (i.e. all files under version control) and the final pdf into an archive.
+\texttt{make submit} creates such an archive.
+
+\subsection{Spell Checking}
+Detecting spelling and grammar errors inside multiple LaTeX documents is quite a complicated task because all the LaTeX commands obliterate the flow of the text.
+However, nothing can ruin a thesis as fast and gratuitous as spelling errors in each sentence.
+Of course, you can find somebody to proofread your thesis, but some automated tools as a first layer can be vital.
+Unfortunately, I am not aware of any flawless tool for this purpose.
+
+First of all, you should set up your tex-editor to give you basic hints about wrong spelling.
+This is not a final solution, but a good starting point to prevent the most obvious errors.
+Most of the available editors support this feature---Just check the corresponding manual.
+
+For more sophisticated grammar or text analysis, this template provides exports of the text from your thesis.
+If you have \href{https://pandoc.org/}{pandoc} installed on your system or use \href{https://www.docker.com/}{docker}, you can use \enquote{\texttt{make docx}} or \enquote{\texttt{make md}} for office or markdown exports.
+Although this output loses some text formatting, they can be imported in various professional checking tools.
+Of course directly in word, but some students also have used \href{https://grammarly.com/}{Grammarly} or \href{https://www.grammarlookup.com/}{GrammarLookup}.
+But keep in mind: the later are cloud-based systems, that most likely store a copy of your text permanently for further refinement of their tools.
+So expect all your text be read and evaluated by a third party, what is not an option for all situations.
+
+\end{document}

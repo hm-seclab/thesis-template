@@ -1,0 +1,28 @@
+% Encoding: UTF-8
+
+@Misc{Bithappens16Template,
+  author   = {Bithappens},
+  title    = {Template for Beautiful Theses},
+  year     = {2016},
+  abstract = {This is a basic template for writing your thesis. Please check the official guidelines of your university/department before submitting and adjust your thesis if needed.},
+  url      = {https://github.com/thesis-toolbox/template},
+  urldate  = {2020-02-20},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
+
+@Comment{jabref-meta: grouping:
+0 AllEntriesGroup:;
+1 SearchGroup:Consistency Checks\;2\;FooBarNonsense\;1\;0\;1\;\;\;\;;
+2 SearchGroup:No Author\;0\;author != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No Title\;0\;title != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No Abstract\;0\;abstract != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No Abstract but needed\;0\;abstract != .+ AND groups="Title Pass"\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No DOI\;0\;DOI != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No Online Identifier\;0\;URL != .+ and DOI != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:No PDF\;0\;file != .+\;0\;1\;1\;\;\;\;;
+2 SearchGroup:Bad bibtexkey\;0\;bibtexkey!=^[^0-9]+[0-9]{2}.+$\;0\;1\;1\;\;\;\;;
+2 SearchGroup:Broken Year\;0\;year!=^19 AND year !=^20\;0\;1\;1\;\;\;\;;
+}
+
+@Comment{jabref-meta: keypatterndefault:[auth][shortyear][veryshorttitle];}
