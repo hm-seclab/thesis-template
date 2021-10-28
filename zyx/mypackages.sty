@@ -156,10 +156,7 @@ captionpos=b, float=htbp, xleftmargin=2em,frame=single,framexleftmargin=1.5em, b
 }{}
 }
 % Add command for TODO
-\newcounter{todos}
-\newcommand{\todo}[1]{%
- \refstepcounter{todos}%
- \textbf{\textcolor{orange}{\texorpdfstring{\textls[-100]{TODO\textsubscript{\thetodos}}}{TODO\thetodos}:~#1}}\xspace}
+\usepackage{todonotes}
 % A package for comments
 \usepackage{verbatim}
 
