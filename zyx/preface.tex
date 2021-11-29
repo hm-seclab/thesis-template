@@ -8,22 +8,42 @@
 \hypersetup{pageanchor=false}
 \newgeometry{bindingoffset=1.19cm} % This number is weird, but it centers the title page
 \begin{titlepage}
- \centering
- {\LARGE \textsc{\myDepartment}}\\[0.8em]
- {\Large \textsc{\myUniversity}}
+ \begin{center}
+ {\LARGE \textsc{\myUniversity}}\\[0.8em]
+ {\Large \textsc{\myDepartment}}
  \vfill
+ \includegraphics[scale=1.5]{img/HM_Logo_rot_RGB}
  \vfill
- {\Large \myThesisType}
+ {\Large \myThesisType}\\[0.8em]
+ {\ifthenelse{\equal{\mylanguage}{de}}{\Large zur Erlangung des Grades}{\Large for obtaining the academic degree of}}\\[0.8em]
+ {\Large \myDegree}\\[0.8em]
+ {\ifthenelse{\equal{\mylanguage}{de}}{\Large im Studiengang \myCourse}{\Large in course of studies \myCourse}}
  \vfill
  \begin{spacing}{1.1}
   \Huge \bfseries \myTitle
  \end{spacing}
+
+ \ifthenelse{\equal{\mylanguage}{en}}{ \begin{spacing}{1.1}
+ 		\Huge \bfseries \myTitleNative
+ \end{spacing}
+  }{\vfill}
+
  \vfill
- {\Large \myAuthor}
  \vfill
  \vfill
+ \noindent\rule{\textwidth}{1pt}
  \vfill
- \includegraphics[scale=1.5]{img/HM_Logo_rot_RGB}
+ \end{center}
+ \begingroup
+ \renewcommand*{\arraystretch}{1.15}
+ \begin{tabularx}{0.7\textwidth}{X X}
+	\ifthenelse{\equal{\mylanguage}{de}}{Autor}{Author}:                        & \myAuthor      \\
+    \ifthenelse{\equal{\mylanguage}{de}}{Matrikelnummer}{Matriculation number}: & \myNumber      \\
+	\ifthenelse{\equal{\mylanguage}{de}}{Abgabedatum}{Submission Date}:         & \myEndDate     \\
+	\ifthenelse{\equal{\mylanguage}{de}}{Aufgabensteller}{Supervisor}:          & \myReviewFirst \\
+	\ifthenelse{\equal{\mylanguage}{de}}{Betreuer}{Advisor}:                    & \myAdvisor     \\
+ \end{tabularx}
+ \endgroup
  \cleardoublepage
 \end{titlepage}
 \restoregeometry
@@ -32,41 +52,6 @@
 \pagenumbering{arabic}
 
 \frontmatter{}
-\cleardoublepage
-%% Begin of the first page
-\thispagestyle{empty}
-\begin{center}
- {\LARGE \textsc{\myDepartment}}\\[0.8em]
- {\Large \textsc{\myUniversity}}
- \vfill
- \vfill
- {\Large \myThesisType}
- \vfill
- \begin{spacing}{1.1}
-  \Huge \bfseries \myTitle
- \end{spacing}
- \ifthenelse{\equal{\myTitleNative}{}}{}{
-  \vspace{2em}
-  \begin{spacing}{1.1}
-   \Huge \bfseries \myTitleNative
-  \end{spacing}
- }
- \vfill
- \vfill
- \begingroup
- \renewcommand*{\arraystretch}{1.15}
- \begin{tabularx}{\textwidth}{R{1} L{1}}
-  \ifthenelse{\equal{\mylanguage}{de}}{Autor}{Author}:                & \myAuthor      \\
-  \ifthenelse{\equal{\mylanguage}{de}}{Abgabedatum}{Submission Date}: & \myEndDate     \\
-  \ifthenelse{\equal{\mylanguage}{de}}{Aufgabensteller}{Supervisor}:  & \myReviewFirst \\
-  \ifthenelse{\equal{\mylanguage}{de}}{Betreuer}{Advisor}:            & \myAdvisor     \\
- \end{tabularx}
- \endgroup
- \vfill
- \vfill
-\end{center}
-%% End of the first page
-\cleardoublepage
 %% Begin of the declaration page
 \hypersetup{pageanchor=true}
 \thispagestyle{empty}
