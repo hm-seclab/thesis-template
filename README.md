@@ -14,3 +14,6 @@
 - Style titlepage for HM
 - Remove second titlepage
 - Add more metadata fields
+
+### 07.02.2023
+- Upstream template update
