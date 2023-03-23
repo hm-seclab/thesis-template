@@ -64,4 +64,7 @@
 \author{\myAuthor}
 \hypersetup{pdfsubject={\myThesisType}}
 
+% Generate glossaries
+\makeglossaries
+
 \endinput
