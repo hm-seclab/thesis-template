@@ -6,8 +6,11 @@
 
 ## Changelog
 
-### Initial version
-- Import thesis-toolbox template
+### 23.03.2023
+- Add glossaries package
+
+### 07.02.2023
+- Upstream template update
 
 ### 30.11.2021
 - Add HM logo
@@ -15,5 +18,5 @@
 - Remove second titlepage
 - Add more metadata fields
 
-### 07.02.2023
-- Upstream template update
+### Initial version
+- Import thesis-toolbox template
