@@ -20,6 +20,7 @@ I have also tested it with \href{http://www.texstudio.org/}{TeXstudio}.
 Although the navigation over the structure panel seems to be broken (it does not recognize the \texttt{\textbackslash subfile} commands correctly), compilation works perfectly.
 As a workaround for broken navigation, I suggest compiling \texttt{main.tex} once, view the resulting PDF and use a right click on any text with \enquote{Go to Source} to jump to the corresponding \texttt{.tex}-file
 
+The template can be compiled in \href{https://www.overleaf.com/}{Overleaf}. Keep in mind that in the beginning of 2024 even the empty template nearly needs the allowed compile time in the free plan of overleaf. So you might need a payed account in the future or once your thesis gets longer or more complex to compile.
 
 \subsection{Personalize the template}
 
@@ -27,6 +28,8 @@ Your thesis is a very personal project, but -- nevertheless -- after all, it is 
 Hence, there must be a lot of formal stuff in place.
 This template takes care of the layout, but you must provide the content.
 To add your personal information (e.g. your name, Topic, supervisors, etc.), just open \texttt{./myconfig.sty} with your favorite tex(t)-editor and edit the corresponding dummy data.
+
+Additionally you must set the language of the document in \texttt{main.tex}. 
 
 In the \texttt{./txt/}-directory you also find the dummy text for the abstract and the acknowledgments for the preface of the thesis.
 I do not suggest to start writing your thesis with those pieces of text, but if you want to add or adjust them later -- now you know where they are waiting for you to fill them.
@@ -141,7 +144,7 @@ Unfortunately, I am not aware of any flawless tool for this purpose.
 
 First of all, you should set up your tex-editor to give you basic hints about wrong spelling.
 This is not a final solution, but a good starting point to prevent the most obvious errors.
-Most of the available editors support this feature---Just check the corresponding manual.
+Most of the available editors support this feature -- Just check the corresponding manual.
 
 For more sophisticated grammar or text analysis, this template provides exports of the text from your thesis.
 If you have \href{https://pandoc.org/}{pandoc} installed on your system or use \href{https://www.docker.com/}{docker}, you can use \enquote{\texttt{make docx}} or \enquote{\texttt{make md}} for office or markdown exports.
@@ -152,5 +155,8 @@ So expect all your text be read and evaluated by a third party, what is not an o
 
 \subsection{Glossaries}
 Glossaries and acronyms are included in the template and can be used like this: \gls{lvm}. Plural terms can be used like this: \glspl{lvm}. Note that the full definition is only printed once, and all references are hyperlinked. 
+
+\subsection{Quotation marks}
+\LaTeX~and this template already does a lot to help you achieve a good level of typography. One part where I will not always brings best results is with quotation marks. If the automatic system fails you can set them manually or give the right instructions to csquotes. Rememeber to set the correct language in the file \texttt{mythesis.cls}. Find the documentation here: \href{https://www.ctan.org/pkg/csquotes?lang=de}{csquotes documentation}.
 
 \end{document}
