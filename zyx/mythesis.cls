@@ -50,7 +50,7 @@
 \usepackage[\myGitRoot]{./zyx/gitinfo}
 
 % scr compatibility with KOMA script
-\usepackage{scrhack}
+\usepackage[listings=false]{scrhack}
 \usepackage{./zyx/mypackages}
 
 %% Adding the git shorttag print on every page in work in progress mode
