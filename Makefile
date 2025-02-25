@@ -13,6 +13,13 @@ all: $(MARKDOWNS) main.pdf
 	  -pdflatex="texfot pdflatex $(SHELLESCAPE) -synctex=1 -interaction=nonstopmode" \
 	  $<
 
+# Add rule for glossaries
+%.gls: %.tex
+	@ makeglossaries $*
+
+# Ensure makeglossaries runs in the latexmk cycle
+%.pdf: %.gls
+
 LIVEPREVIEW := $(if $(filter live,$(MAKECMDGOALS)),-pvc,)
 live: main.pdf
 
