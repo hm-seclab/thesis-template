@@ -13,12 +13,36 @@ all: $(MARKDOWNS) main.pdf
 	  -pdflatex="texfot pdflatex $(SHELLESCAPE) -synctex=1 -interaction=nonstopmode" \
 	  $<
 
+## Add this option to latexmk above for in memory compilation and output
+#
+# -outdir=/tmp/0_thesis_build/tmp_files
+
+## (Also) add this option to latexmk above for smooth live preview of final output, i.e., single reload at the end of compilation
+#
+# -out2dir=/tmp/0_thesis_build/
+
 # Add rule for glossaries
 %.gls: %.tex
 	@ makeglossaries $*
 
 # Ensure makeglossaries runs in the latexmk cycle
 %.pdf: %.gls
+
+## Note that the correct way to build glossaries is to remove the above rules and add this to "~/.config/latexmk/latexmkrc":
+#
+# Make glossaries
+#add_cus_dep( 'acn', 'acr', 0, 'makeglossaries' );
+#   add_cus_dep( 'glo', 'gls', 0, 'makeglossaries' );
+#   $clean_ext .= " acr acn alg glo gls glg";
+
+#   sub makeglossaries {
+#        my ($base_name, $path) = fileparse( $_[0] );
+#        my @args = ( "-q", "-d", $path, $base_name );
+#        if ($silent) { unshift @args, "-q"; }
+#        return system "makeglossaries", "-d", $path, $base_name;
+#    }
+#
+##
 
 LIVEPREVIEW := $(if $(filter live,$(MAKECMDGOALS)),-pvc,)
 live: main.pdf
